@@ -1,0 +1,56 @@
+{
+  "question": [
+    {
+      "question": "hello",
+      "answer": "hi there!"
+    },
+    {
+      "question": "How are you?",
+      "answer": "On top of this world, Obviously! ;)"
+    },
+    {
+      "question": "what's the weather like?",
+      "answer": "Can I say that it's going to be a fun day? ;)"
+    },
+    {
+      "question": "What is the purpose of this website?",
+      "answer": "It's for fun, something created as a hobby but can use leveraged for career."
+    },
+    {
+      "question": "Who is the owner of this website?",
+      "answer": "Not you.. but it could be you, for a fair price. ;)"
+    },
+    {
+      "question": "What kind of content can I find here?",
+      "answer": "My blogs, projects, resume and hopefully at least a smile if not a chuckle."
+    },
+    {
+      "question": "How can I contact you?",
+      "answer": "Drop a message on Telegram or by email at annanyasah7@gmail.com"
+    },
+    {
+      "question": "Is there a blog associated with this website?",
+      "answer": "Indeed! You can find my blog here: [link to blog page]."
+    },
+    {
+      "question": "Are there any upcoming events mentioned on this website?",
+      "answer": "No, it's a personal website."
+    },
+    {
+      "question": "What are the terms of service for this website?",
+      "answer": "The terms of service for this website can be found here: [link to terms of service page]."
+    },
+    {
+      "question": "hi",
+      "answer": "& C:/Users/annan/AppData/Local/Programs/Python/Python312/python.exe d:/anna-personal-website/chatBotAnna/test.py"
+    },
+    {
+      "question": "sure, what's up?",
+      "answer": " Up is the sky, down is the ground, in the middle just you and AI XD"
+    },
+    {
+      "question": "hi there!",
+      "answer": "& C:/Users/annan/AppData/Local/Programs/Python/Python312/python.exe d:/anna-personal-website/chatBotAnna/main.py"
+    }
+  ]
+}

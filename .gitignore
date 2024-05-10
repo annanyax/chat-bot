@@ -1,0 +1,37 @@
+IDE and editor files
+.idea/
+.vscode/
+*.pyc
+
+Virtual environment
+.venv/
+env/
+venv/
+poetry.lock
+
+Testing and coverage
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+nosetests.xml
+
+Logs
+chatbot.log
+
+System or build files
+*.pyo
+*.egg-info/
+dist/
+build/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg
+
+Text files for user-generated content
+*.txt

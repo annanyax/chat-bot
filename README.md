@@ -43,4 +43,3 @@ This chatbot is built using Python and serves a simple web interface to simulate
 
     Open Your Browser:
     Navigate to http://localhost:5000/ to start interacting with the chatbot.
-

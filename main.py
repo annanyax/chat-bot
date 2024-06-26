@@ -3,6 +3,7 @@ from difflib import get_close_matches
 import re
 import time
 import logging
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 logging.basicConfig(filename='chatbot.log', level=logging.DEBUG)
 
@@ -15,8 +16,6 @@ def clean_user_input(user_input: str) -> str:
 def validate_knowledge_base(knowledge_base: dict) -> bool:
     for entry in knowledge_base["knowledge_base"]:
         if not all(key in entry for key in ("question", "answer")):
-            return False
-        if not isinstance(entry["question"], list):
             return False
     return True
 
@@ -52,34 +51,48 @@ def get_answer_for_question(question: str, knowledge_base: dict) -> str | None:
     for entry in knowledge_base["knowledge_base"]:
         if question in entry["question"]:
             return entry["answer"]
+    return None
 
-# Chatbot main function that runs the chatbot
-def chat_bot():
-    try:
-        knowledge_base = load_knowledge_base('knowledge_base.json')
-        while True:
-            user_input: str = input("You: ")
+# HTTP request handler
+class ChatbotHTTPRequestHandler(BaseHTTPRequestHandler):
+    def _set_response(self, content_type='text/html'):
+        self.send_response(200)
+        self.send_header('Content-type', content_type)
+        self.end_headers()
 
-            if user_input.lower() == "quit":
-                break
+    def do_GET(self):
+        if self.path == '/':
+            self._set_response()
+            with open('index.html', 'rb') as file:
+                self.wfile.write(file.read())
 
-            best_match: str | None = find_best_match(user_input, knowledge_base)
+    def do_POST(self):
+        if self.path == '/chat':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data)
+            user_input = data.get('user_input', '')
+
+            knowledge_base = load_knowledge_base('knowledge_base.json')
+
+            best_match = find_best_match(user_input, knowledge_base)
             logging.debug(f"Best match: {best_match}")
 
             if best_match:
-                answer: str = get_answer_for_question(best_match, knowledge_base)
-                print(f"Bot: {answer}")
+                answer = get_answer_for_question(best_match, knowledge_base)
+                response = f" {answer}"
             else:
-                print("Bot: Sorry, I don't understand the answer. Can you teach me?")
-                new_answer: str = input('Type the answer or "skip" to skip:')
+                response = " Sorry, I don't understand the question. Can you teach me?"
+                # Add teaching logic here if needed
 
-                if new_answer.lower() != "skip":
-                    knowledge_base["knowledge_base"].append({"question": [user_input], "answer": new_answer})
-                    save_knowledge_base("knowledge_base.json", knowledge_base)
-                    print("Bot: Thanks for teaching me!")
+            self._set_response('application/json')
+            self.wfile.write(json.dumps({'response': response}).encode('utf-8'))
 
-    except (FileNotFoundError, ValueError) as e:
-        print(f"Error: {e}")
+def run(server_class=HTTPServer, handler_class=ChatbotHTTPRequestHandler, port=5000):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f'Starting httpd server on port {port}...')
+    httpd.serve_forever()
 
 if __name__ == "__main__":
-    chat_bot()
+    run()

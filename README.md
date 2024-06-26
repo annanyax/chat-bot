@@ -28,7 +28,7 @@ This chatbot is built using Python and serves a simple web interface to simulate
 ### Running the Chatbot Locally
 
 1. **Clone the Repository**:
-   git clone https://github.com/yourusername/chatbot-terminal.git
+   git clone https://github.com/annanyax/chat-bot.git
    cd chatbot-terminal
 
 2. **Install Dependencies**:
